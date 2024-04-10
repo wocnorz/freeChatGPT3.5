@@ -2,11 +2,6 @@
 
 Welcome to the ChatGPT API Free Reverse Proxy, offering free self-hosted API access to ChatGPT (`gpt-3.5-turbo`) with OpenAI's familiar structure, so no code changes are needed.
 
-## Quick Links
-
-- [Join our Discord Community](https://discord.pawan.krd) for support and questions.
-	- ⚡Note: Your Discord account must be at least 7 days old to be able join our Discord community.
-
 ## Table of Contents
 
 - [Features](#features)
@@ -50,14 +45,15 @@ Note: This option is not available to all countries yet. if you are from a count
 1. Ensure NodeJs (v19+) is installed: [Download NodeJs](https://nodejs.org/en/download)
 2. Clone this repository:
    ```bash
-   git clone https://github.com/PawanOsman/ChatGPT.git
+   git clone 本仓
    ```
 3. Open `start.bat` (Windows) or `start.sh` (Linux with `bash start.sh` command) to install dependencies and launch the server.
 4. Done, you can connect to your local server's API at:
    ```
-   http://localhost:3040/v1/chat/completions
+   http://localhost:{端口号}/v1/chat/completions
    ```
-   Note that the base url will be `http://localhost:3040/v1`
+   Note that the base url will be `http://localhost:{端口号}/v1`
+   如果不作设置，默认是3040
 
 To include installation instructions for Termux on Android devices, you can add the following section right after the instructions for Linux in the **Installing/Self-Hosting Guide**:
 
@@ -101,17 +97,6 @@ To install and run the ChatGPT API Reverse Proxy on Android using Termux, follow
    Note that the base url will be `http://localhost:3040/v1`
 
    You can now use this address to connect to your self-hosted ChatGPT API Reverse Proxy from Android applications/websites that support reverse proxy configurations, on the same device.
-
-## Accessing Our Hosted API
-
-Utilize our pre-hosted ChatGPT-like API for free by:
-
-1. Joining our [Discord server](https://discord.pawan.krd).
-2. Obtaining an API key from the `#Bot` channel with the `/key` command.
-3. Incorporating the API key into your requests to:
-   ```
-   https://api.pawan.krd/v1/chat/completions
-   ```
 
 ## Usage Examples
 
