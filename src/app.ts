@@ -111,7 +111,6 @@ async function getNewSessionId() {
 
   // console.log("New Token:", token);
   // console.log("New Device ID:", oaiDeviceId);
-}
 
 // Middleware to enable CORS and handle pre-flight requests
 function enableCORS(req: Request, res: Response, next: NextFunction) {
