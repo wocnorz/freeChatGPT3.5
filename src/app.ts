@@ -5,11 +5,16 @@ import https from "https";
 import { encode } from "gpt-3-encoder";
 import { randomUUID } from "crypto";
 
+import dotenv from "dotenv";
+
+// Load .env file
+dotenv.config();
+
 // Constants for the server and API configuration
-const port = 3040;
+const port = process.env.PORT;
 const baseUrl = "https://chat.openai.com";
 const apiUrl = `${baseUrl}/backend-anon/conversation`;
-const refreshInterval = 60000; // Interval to refresh token in ms
+const refreshInterval = 300000; // Interval to refresh token in ms
 const errorWait = 120000; // Wait time in ms after an error
 
 // Initialize global variables to store the session token and device ID
@@ -81,18 +86,28 @@ const axiosInstance = axios.create({
 });
 
 // Function to get a new session ID and token from the OpenAI API
+// Modify getNewSessionId function to fallback on .env token if necessary
 async function getNewSessionId() {
-  let newDeviceId = randomUUID();
-  const response = await axiosInstance.post(
-    `${baseUrl}/backend-anon/sentinel/chat-requirements`,
-    {},
-    {
-      headers: { "oai-device-id": newDeviceId },
+  try {
+    let newDeviceId = randomUUID();
+    const response = await axiosInstance.post(
+      `${baseUrl}/backend-anon/sentinel/chat-requirements`,
+      {},
+      {
+        headers: { "oai-device-id": newDeviceId },
+      }
+    );
+    console.log(`System: Successfully refreshed session ID and token.`);
+    oaiDeviceId = newDeviceId;
+    token = response.data.token;
+  } catch (error) {
+    console.error("Error fetching new session ID and token, falling back on .env token.");
+    token = process.env.STATIC_TOKEN;
+    if (!token) {
+      console.error("No token found in .env file. Make sure you have a STATIC_TOKEN variable set.");
     }
-  );
-  console.log(`System: Successfully refreshed session ID and token. ${!token ? "(Now it's ready to process requests)" : ""}`);
-  oaiDeviceId = newDeviceId;
-  token = response.data.token;
+  }
+}
 
   // console.log("New Token:", token);
   // console.log("New Device ID:", oaiDeviceId);
@@ -299,7 +314,7 @@ app.use((req, res) =>
   res.status(404).send({
     status: false,
     error: {
-      message: `The requested endpoint (${req.method.toLocaleUpperCase()} ${req.path}) was not found. please make sure to use "http://localhost:3040/v1" as the base URL.`,
+      message: `The requested endpoint (${req.method.toLocaleUpperCase()} ${req.path}) was not found. please make sure to use "http://localhost:${port}/v1" as the base URL.`,
       type: "invalid_request_error",
     },
     support: "https://discord.pawan.krd",
