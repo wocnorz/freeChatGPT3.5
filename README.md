@@ -57,47 +57,6 @@ Note: This option is not available to all countries yet. if you are from a count
 
 To include installation instructions for Termux on Android devices, you can add the following section right after the instructions for Linux in the **Installing/Self-Hosting Guide**:
 
-### Termux on Android Phones
-
-To install and run the ChatGPT API Reverse Proxy on Android using Termux, follow these steps:
-
-1. Install [Termux](https://play.google.com/store/apps/details?id=com.termux) from the Play Store.
-2. Update Termux packages:
-   ```bash
-   apt update
-   ```
-3. Upgrade Termux packages:
-   ```bash
-   apt upgrade
-   ```
-4. Install git, Node.js, and npm:
-   ```bash
-   apt install -y git nodejs
-   ```
-5. Clone the repository:
-   ```bash
-   git clone https://github.com/PawanOsman/ChatGPT.git
-   ```
-6. Navigate to the cloned directory:
-   ```bash
-   cd ChatGPT
-   ```
-7. Start the server with:
-
-   ```bash
-   bash start.sh
-   ```
-
-8. Your local server will now be running and accessible at:
-
-   ```
-   http://localhost:3040/v1/chat/completions
-   ```
-
-   Note that the base url will be `http://localhost:3040/v1`
-
-   You can now use this address to connect to your self-hosted ChatGPT API Reverse Proxy from Android applications/websites that support reverse proxy configurations, on the same device.
-
 ## Usage Examples
 
 Leverage the same integration code as OpenAI's official libraries by simply adjusting the API key and base URL in your requests. For self-hosted setups, ensure to switch the base URL to your local server's address as mentioned above.
